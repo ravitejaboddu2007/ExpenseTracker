@@ -1,0 +1,71 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: 100vh;
+  gap: 20px;
+}
+#box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 20px;
+  background-color: #bbf7d0;
+  border: 2px solid #86efac;
+  border-radius: 10px;
+  padding: 20px;
+  width: 75%;
+  max-width: 750px;
+  min-height: 50vh;
+}
+button {
+  background-color: #16a34a;
+  color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+input,
+select {
+  padding: 5px;
+  width: 100%;
+  border: none;
+}
+#navBar {
+  background-color: #16a34a;
+  color: white;
+  padding: 20px;
+  width: 100%;
+}
+.expense-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.expense-list li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+}
+.expense-name {
+  flex: 1;
+}
+button:hover {
+  background-color: white;
+  color: green;
+  border: 2px solid black;
+}
+#btns {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+#btns button {
+  width: 50%;
+}
