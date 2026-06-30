@@ -32,12 +32,26 @@ select {
   padding: 5px;
   width: 100%;
   border: none;
+  border-radius: 8px;
 }
 #navBar {
   background-color: #16a34a;
   color: white;
   padding: 20px;
   width: 100%;
+}
+.baseexpense-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.baseexpense-list li {
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
 }
 .expense-list {
   list-style: none;
@@ -46,20 +60,31 @@ select {
   gap: 10px;
 }
 .expense-list li {
-  display: flex;
-  align-items: center;
   gap: 15px;
   padding: 10px;
   background-color: white;
   border-radius: 8px;
 }
+.expense-main {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+.expense-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
 .expense-name {
   flex: 1;
 }
 button:hover {
-  background-color: white;
-  color: green;
-  border: 2px solid black;
+  background-color: greenyellow;
+  color: black;
+  transform: scale(1.05);
+}
+button:active {
+  transform: scale(0.95);
 }
 #btns {
   display: flex;

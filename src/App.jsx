@@ -9,6 +9,7 @@ function App() {
     const storedExpenses = localStorage.getItem("list");
     return storedExpenses ? JSON.parse(storedExpenses) : [];
   });
+  const [editExpense, setEditExpense] = useState(null);
   const [filter, setFilter] = useState("All");
   const filteredExpenses =
     filter === "All"
@@ -29,12 +30,15 @@ function App() {
           <ExpenseForm
             setExpenseList={setExpenseList}
             expenseList={expenseList}
+            editExpense={editExpense}
+            setEditExpense={setEditExpense}
           />
           <ExpensesFilter filter={filter} setFilter={setFilter} />
           <ExpenseList
             expenseList={expenseList}
             filteredExpenses={filteredExpenses}
             setExpenseList={setExpenseList}
+            setEditExpense={setEditExpense}
           />
         </div>
       </div>

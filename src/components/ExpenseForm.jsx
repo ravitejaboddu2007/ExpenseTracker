@@ -1,30 +1,61 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 function ExpenseForm(props) {
   const [newExpense, setNewExpense] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
+  useEffect(() => {
+    if (props.editExpense) {
+      setNewExpense(props.editExpense.name);
+      setAmount(props.editExpense.amount);
+      setDate(props.editExpense.date);
+      setCategory(props.editExpense.category);
+    }
+  }, [props.editExpense]);
   function addExpense() {
+    const numericAmount = Number(amount);
     if (newExpense.trim() === "") return;
     if (category === "") return;
-    const numericAmount = Number(amount);
-
     if (isNaN(numericAmount) || numericAmount <= 0) return;
-    let expenseList = props.expenseList;
-    props.setExpenseList([
-      ...expenseList,
-      {
-        id: crypto.randomUUID(),
-        name: newExpense,
-        amount: numericAmount,
-        date: date,
-        category: category,
-      },
-    ]);
-    setNewExpense("");
-    setAmount("");
-    setDate("");
-    setCategory("");
+    if (props.editExpense) {
+      const updatedList = props.expenseList.map((expense) => {
+        if (expense.id === props.editExpense.id) {
+          return {
+            ...expense,
+            name: newExpense,
+            amount: numericAmount,
+            date,
+            category,
+          };
+        }
+        return expense;
+      });
+
+      props.setExpenseList(updatedList);
+
+      setNewExpense("");
+      setAmount("");
+      setDate("");
+      setCategory("");
+      props.setEditExpense(null);
+    } else {
+      props.setExpenseList([
+        ...props.expenseList,
+        {
+          id: crypto.randomUUID(),
+          name: newExpense,
+          amount: numericAmount,
+          date,
+          category,
+        },
+      ]);
+
+      setNewExpense("");
+      setAmount("");
+      setDate("");
+      setCategory("");
+    }
   }
   return (
     <>
@@ -82,8 +113,8 @@ function ExpenseForm(props) {
         </select>
       </div>
       <div id="btns">
-        <button onClick={addExpense} id="addExpense">
-          Add An Expense
+        <button onClick={addExpense}>
+          {props.editExpense ? "Save Updates" : "Add An Expense"}
         </button>
         <button
           onClick={() => {

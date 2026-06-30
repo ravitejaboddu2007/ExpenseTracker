@@ -6,6 +6,7 @@ function ExpenseList(props) {
 
     props.setExpenseList(updatedList);
   }
+
   const total = props.filteredExpenses.reduce((sum, expense) => {
     return sum + expense.amount;
   }, 0);
@@ -13,7 +14,7 @@ function ExpenseList(props) {
     <>
       <h3>Expenses</h3>
       {props.filteredExpenses.length === 0 ? (
-        <ul className="expense-list">
+        <ul className="baseexpense-list">
           <li>
             <span className="expense-name">---</span>
             <span>---</span>
@@ -26,14 +27,21 @@ function ExpenseList(props) {
         <ol className="expense-list" type="1">
           {props.filteredExpenses.map((expense, index) => (
             <li key={expense.id}>
-              <span>{index + 1}.</span>
-              <span className="expense-name">{expense.name}</span>
-              <span>₹{expense.amount}</span>
-              <span>{expense.date.split("-").reverse().join("-")}</span>
-              <span>[{expense.category}]</span>
-              <button onClick={() => deleteExpense(expense.id)}>
-                Remove expense
-              </button>
+              <div className="expense-main">
+                <span>{index + 1}.</span>
+                <span className="expense-name">{expense.name}</span>
+                <span>₹{expense.amount}</span>
+                <span>{expense.date.split("-").reverse().join("-")}</span>
+                <span>[{expense.category}]</span>
+              </div>
+              <div className="expense-actions">
+                <button onClick={() => props.setEditExpense(expense)}>
+                  ✏️ Edit expense
+                </button>
+                <button onClick={() => deleteExpense(expense.id)}>
+                  🗑️ Remove expense
+                </button>
+              </div>
             </li>
           ))}
         </ol>
