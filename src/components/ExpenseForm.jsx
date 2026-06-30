@@ -15,17 +15,15 @@ function ExpenseForm(props) {
   }, [props.editExpense]);
 
   function addExpense() {
-    const numericAmount = Number(amount);
-    if (newExpense.trim() === "") return;
-    if (category === "") return;
-    if (isNaN(numericAmount) || numericAmount <= 0) return;
+    const result = validateExpense();
 
+    if (!result) return;
     props.setExpenseList([
       ...props.expenseList,
       {
         id: crypto.randomUUID(),
         name: newExpense,
-        amount: numericAmount,
+        amount: result.numericAmount,
         date,
         category,
       },
@@ -38,16 +36,15 @@ function ExpenseForm(props) {
   }
 
   function updateExpense() {
-    const numericAmount = Number(amount);
-    if (newExpense.trim() === "") return;
-    if (category === "") return;
-    if (isNaN(numericAmount) || numericAmount <= 0) return;
+    const result = validateExpense();
+
+    if (!result) return;
     const updatedList = props.expenseList.map((expense) => {
       if (expense.id === props.editExpense.id) {
         return {
           ...expense,
           name: newExpense,
-          amount: numericAmount,
+          amount: result.numericAmount,
           date,
           category,
         };
@@ -61,6 +58,29 @@ function ExpenseForm(props) {
     setDate("");
     setCategory("");
     props.setEditExpense(null);
+  }
+  function validateExpense() {
+    const selectedDate = new Date(date);
+
+    if (selectedDate < new Date("2020-01-01")) {
+      alert("Please enter a date from 2020 onwards");
+      return false;
+    }
+
+    if (selectedDate > new Date()) {
+      alert("Future dates are not allowed");
+      return false;
+    }
+
+    const numericAmount = Number(amount);
+
+    if (newExpense.trim() === "") return false;
+    if (category === "") return false;
+    if (isNaN(numericAmount) || numericAmount <= 0) return false;
+
+    return {
+      numericAmount,
+    };
   }
   return (
     <>
