@@ -13,49 +13,54 @@ function ExpenseForm(props) {
       setCategory(props.editExpense.category);
     }
   }, [props.editExpense]);
+
   function addExpense() {
     const numericAmount = Number(amount);
     if (newExpense.trim() === "") return;
     if (category === "") return;
     if (isNaN(numericAmount) || numericAmount <= 0) return;
-    if (props.editExpense) {
-      const updatedList = props.expenseList.map((expense) => {
-        if (expense.id === props.editExpense.id) {
-          return {
-            ...expense,
-            name: newExpense,
-            amount: numericAmount,
-            date,
-            category,
-          };
-        }
-        return expense;
-      });
 
-      props.setExpenseList(updatedList);
+    props.setExpenseList([
+      ...props.expenseList,
+      {
+        id: crypto.randomUUID(),
+        name: newExpense,
+        amount: numericAmount,
+        date,
+        category,
+      },
+    ]);
 
-      setNewExpense("");
-      setAmount("");
-      setDate("");
-      setCategory("");
-      props.setEditExpense(null);
-    } else {
-      props.setExpenseList([
-        ...props.expenseList,
-        {
-          id: crypto.randomUUID(),
+    setNewExpense("");
+    setAmount("");
+    setDate("");
+    setCategory("");
+  }
+
+  function updateExpense() {
+    const numericAmount = Number(amount);
+    if (newExpense.trim() === "") return;
+    if (category === "") return;
+    if (isNaN(numericAmount) || numericAmount <= 0) return;
+    const updatedList = props.expenseList.map((expense) => {
+      if (expense.id === props.editExpense.id) {
+        return {
+          ...expense,
           name: newExpense,
           amount: numericAmount,
           date,
           category,
-        },
-      ]);
+        };
+      }
+      return expense;
+    });
 
-      setNewExpense("");
-      setAmount("");
-      setDate("");
-      setCategory("");
-    }
+    props.setExpenseList(updatedList);
+    setNewExpense("");
+    setAmount("");
+    setDate("");
+    setCategory("");
+    props.setEditExpense(null);
   }
   return (
     <>
@@ -113,9 +118,11 @@ function ExpenseForm(props) {
         </select>
       </div>
       <div id="btns">
-        <button onClick={addExpense}>
-          {props.editExpense ? "Save Updates" : "Add An Expense"}
-        </button>
+        {props.editExpense ? (
+          <button onClick={updateExpense}>Save Updates</button>
+        ) : (
+          <button onClick={addExpense}>Add An Expense</button>
+        )}
         <button
           onClick={() => {
             props.setExpenseList([]);
