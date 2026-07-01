@@ -1,47 +1,41 @@
 import { useState, useEffect } from "react";
-import ExpenseForm from "./components/ExpenseForm.jsx";
-import ExpensesFilter from "./components/ExpensesFilter.jsx";
-import ExpenseList from "./components/ExpenseList.jsx";
+import { Route, Routes, Link } from "react-router-dom";
+import HomePage from "./Pages/HomePage.jsx";
 import "./App.css";
+import AnalyticsPage from "./Pages/AnalyticsPage.jsx";
 
 function App() {
   const [expenseList, setExpenseList] = useState(() => {
     const storedExpenses = localStorage.getItem("list");
     return storedExpenses ? JSON.parse(storedExpenses) : [];
   });
-  const [editExpense, setEditExpense] = useState(null);
-  const [filter, setFilter] = useState("All");
-  const filteredExpenses =
-    filter === "All"
-      ? expenseList
-      : expenseList.filter((expense) => {
-          return expense.category === filter;
-        });
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(expenseList));
   }, [expenseList]);
+
   return (
     <>
       <div className="app">
         <nav id="navBar">
-          <h1>Expense Tracker</h1>
+          <Link to="/">
+            <h1>Expense Tracker</h1>
+          </Link>
         </nav>
-        <div id="box">
-          <ExpenseForm
-            setExpenseList={setExpenseList}
-            expenseList={expenseList}
-            editExpense={editExpense}
-            setEditExpense={setEditExpense}
-          />
-          <ExpensesFilter filter={filter} setFilter={setFilter} />
-          <ExpenseList
-            expenseList={expenseList}
-            filteredExpenses={filteredExpenses}
-            setExpenseList={setExpenseList}
-            editExpense={editExpense}
-            setEditExpense={setEditExpense}
-          />
-        </div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                expenseList={expenseList}
+                setExpenseList={setExpenseList}
+              />
+            }
+          ></Route>
+          <Route
+            path="/analytics"
+            element={<AnalyticsPage expenseList={expenseList} />}
+          ></Route>
+        </Routes>
       </div>
     </>
   );

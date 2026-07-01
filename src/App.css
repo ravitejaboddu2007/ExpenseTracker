@@ -40,6 +40,14 @@ select {
   padding: 20px;
   width: 100%;
 }
+#navBar a {
+  color: white;
+  text-decoration: none;
+}
+a {
+  color: black;
+}
+
 .baseexpense-list {
   list-style: none;
   display: flex;

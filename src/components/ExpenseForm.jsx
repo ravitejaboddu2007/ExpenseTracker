@@ -168,6 +168,7 @@ function ExpenseForm(props) {
             setDate("");
             setCategory("");
             props.setEditExpense(null);
+            props.setFilter("All");
           }}
         >
           Clear All

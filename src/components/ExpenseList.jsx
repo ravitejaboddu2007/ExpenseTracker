@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function ExpenseList(props) {
   function deleteExpense(id) {
     const updatedList = props.expenseList.filter((expense) => {
@@ -53,6 +55,11 @@ function ExpenseList(props) {
         <b>No.of Expenses: {props.filteredExpenses.length}</b>
       </p>
       <h3>Total: ₹{total}</h3>
+      <p>
+        <b>
+          View analytics: <Link to="/analytics">📊 Analytics</Link>
+        </b>
+      </p>
     </>
   );
 }
