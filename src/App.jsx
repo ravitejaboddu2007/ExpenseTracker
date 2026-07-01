@@ -38,6 +38,7 @@ function App() {
             expenseList={expenseList}
             filteredExpenses={filteredExpenses}
             setExpenseList={setExpenseList}
+            editExpense={editExpense}
             setEditExpense={setEditExpense}
           />
         </div>

@@ -11,6 +11,11 @@ function ExpenseForm(props) {
       setAmount(props.editExpense.amount);
       setDate(props.editExpense.date);
       setCategory(props.editExpense.category);
+    } else {
+      setNewExpense("");
+      setAmount("");
+      setDate("");
+      setCategory("");
     }
   }, [props.editExpense]);
 
@@ -60,8 +65,13 @@ function ExpenseForm(props) {
     props.setEditExpense(null);
   }
   function validateExpense() {
-    const selectedDate = new Date(date);
+    if (newExpense.trim() === "") return false;
+    if (category === "") return false;
+    const numericAmount = Number(amount);
+    if (isNaN(numericAmount) || numericAmount <= 0) return false;
+    if (!date) return false;
 
+    const selectedDate = new Date(date);
     if (selectedDate < new Date("2020-01-01")) {
       alert("Please enter a date from 2020 onwards");
       return false;
@@ -71,12 +81,6 @@ function ExpenseForm(props) {
       alert("Future dates are not allowed");
       return false;
     }
-
-    const numericAmount = Number(amount);
-
-    if (newExpense.trim() === "") return false;
-    if (category === "") return false;
-    if (isNaN(numericAmount) || numericAmount <= 0) return false;
 
     return {
       numericAmount,
@@ -139,7 +143,20 @@ function ExpenseForm(props) {
       </div>
       <div id="btns">
         {props.editExpense ? (
-          <button onClick={updateExpense}>Save Updates</button>
+          <>
+            <button onClick={updateExpense}>Save Updates</button>
+            <button
+              onClick={() => {
+                props.setEditExpense(null);
+                setNewExpense("");
+                setAmount("");
+                setDate("");
+                setCategory("");
+              }}
+            >
+              Cancel
+            </button>
+          </>
         ) : (
           <button onClick={addExpense}>Add An Expense</button>
         )}
@@ -150,6 +167,7 @@ function ExpenseForm(props) {
             setAmount("");
             setDate("");
             setCategory("");
+            props.setEditExpense(null);
           }}
         >
           Clear All

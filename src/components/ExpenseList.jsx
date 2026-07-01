@@ -5,6 +5,9 @@ function ExpenseList(props) {
     });
 
     props.setExpenseList(updatedList);
+    if (props.editExpense?.id === id) {
+      props.setEditExpense(null);
+    }
   }
 
   const total = props.filteredExpenses.reduce((sum, expense) => {
