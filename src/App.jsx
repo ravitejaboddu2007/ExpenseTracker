@@ -15,28 +15,30 @@ function App() {
 
   return (
     <>
-      <div className="app">
-        <nav id="navBar">
-          <Link to="/">
-            <h1>Expense Tracker</h1>
-          </Link>
-        </nav>
-        <Routes>
-          <Route
-            path="/"
-            element={
+      <nav id="navBar">
+        <Link to="/">
+          <h1>Expense Tracker</h1>
+        </Link>
+      </nav>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="app">
               <HomePage
                 expenseList={expenseList}
                 setExpenseList={setExpenseList}
               />
-            }
-          ></Route>
-          <Route
-            path="/analytics"
-            element={<AnalyticsPage expenseList={expenseList} />}
-          ></Route>
-        </Routes>
-      </div>
+            </div>
+          }
+        />
+
+        <Route
+          path="/analytics"
+          element={<AnalyticsPage expenseList={expenseList} />}
+        />
+      </Routes>
     </>
   );
 }
