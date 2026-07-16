@@ -1,4 +1,5 @@
 import "./AnalyticsPage.css";
+import { AIAnalysis } from "../components/AIAnalysis";
 function AnalyticsPage({ expenseList }) {
   let maxAmountPerCategory = 0;
   let maxSpentCategory;
@@ -45,6 +46,7 @@ function AnalyticsPage({ expenseList }) {
         year: "numeric",
       })
     : "";
+
   return (
     <>
       <div className="Analytics">
@@ -108,6 +110,7 @@ function AnalyticsPage({ expenseList }) {
                 );
               })}
             </div>
+            <AIAnalysis expenseList={expenseList} />
           </>
         ) : (
           <div className="no-expense">No expenses!</div>

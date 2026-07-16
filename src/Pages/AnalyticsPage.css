@@ -71,3 +71,22 @@
   font-size: 32px;
   opacity: 0.6;
 }
+.ai-analysis {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.ai-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+#textarea {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 500px;
+}
+#AskAI {
+  padding: 10px;
+}
